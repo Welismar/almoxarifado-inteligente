@@ -71,6 +71,22 @@ Quando houver registros em `stock_balances`, os alertas da visão geral consulta
 
 O cadastro inicial está em `/materiais`. Ele lista e cria registros em `public.materials` pela rota protegida `/api/materials`; o usuário autenticado precisa pertencer a uma empresa, ter um registro em `public.profiles` e ter a migration aplicada. A API deriva `company_id` do perfil da sessão, em vez de confiar no formulário do navegador.
 
+Movimentações usam `POST /api/movements` e a função transacional `record_stock_movement` da migration `002_stock_movement_function.sql`:
+
+```json
+{
+	"projectId": "uuid-da-obra",
+	"warehouseId": "uuid-do-almoxarifado",
+	"materialId": "uuid-do-material",
+	"locationId": "uuid-da-localizacao",
+	"type": "receipt",
+	"quantity": 10,
+	"unitCost": 25.5
+}
+```
+
+Para `issue` e `loss`, o banco rejeita a operação se o saldo disponível for insuficiente. Toda movimentação aceita gera uma linha em `stock_movements` e outra em `audit_log`.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.
