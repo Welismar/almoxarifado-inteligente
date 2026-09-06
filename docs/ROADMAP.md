@@ -64,7 +64,8 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 
 - [x] Manifest e service worker para instalação PWA e fallback básico.
 - [x] IndexedDB e sincronização automática para movimentações offline.
-- [ ] Fila offline para requisições, inventário e fotos.
+- [x] Fila offline para movimentações e requisições.
+- [ ] Fila offline para inventário, fotos e anexos.
 - [ ] Fila idempotente de sincronização.
 - [ ] Fotos e documentos no Supabase Storage.
 - [ ] Notificações e assistente de IA com escopo por permissão.

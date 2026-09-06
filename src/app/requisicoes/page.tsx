@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useState } from "react";
+import { enqueueOfflineRequest } from "@/lib/offline-queue";
 
 type Option = { id: string; name: string; code?: string; unit?: string };
 const initialForm = { projectId: "", materialId: "", quantity: "", priority: "normal", neededAt: "", front: "", service: "", costCenter: "", notes: "" };
@@ -30,10 +31,17 @@ export default function RequestsPage() {
     setError("");
     setMessage("");
     setIsSaving(true);
-    const response = await fetch("/api/requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, quantity: Number(form.quantity) }) });
-    const result = (await response.json()) as { error?: string };
-    if (!response.ok) setError(result.error ?? "Não foi possível enviar a requisição.");
-    else { setMessage("Requisição enviada para aprovação."); setForm(initialForm); }
+    const body = { ...form, quantity: Number(form.quantity) };
+    try {
+      const response = await fetch("/api/requests", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      const result = (await response.json()) as { error?: string };
+      if (!response.ok) setError(result.error ?? "Não foi possível enviar a requisição.");
+      else { setMessage("Requisição enviada para aprovação."); setForm(initialForm); }
+    } catch {
+      await enqueueOfflineRequest("/api/requests", body);
+      setMessage("Sem conexão. Requisição salva e será sincronizada quando a internet voltar.");
+      setForm(initialForm);
+    }
     setIsSaving(false);
   }
 
