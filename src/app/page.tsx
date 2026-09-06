@@ -1,4 +1,3 @@
-export default function Home() {
 const stockItems = [
   { name: "Luva nitrílica", category: "EPI", quantity: 18, minimum: 30, status: "critical" },
   { name: "Papel A4 75g", category: "Escritório", quantity: 124, minimum: 80, status: "healthy" },

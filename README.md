@@ -9,6 +9,7 @@ Sistema de almoxarifado inteligente para construção civil. O produto acompanha
 - Dashboard responsivo com visão de estoque, alertas e movimentações de demonstração.
 - Identidade visual Stockwise para operação de almoxarifado.
 - Primeira migration PostgreSQL/Supabase com empresas, obras, almoxarifados, materiais, fornecedores, saldos, movimentações, requisições e auditoria.
+- Cliente REST tipado para consultas server-side ao Supabase, sem expor a service role.
 - Documentação de setup, arquitetura inicial e roadmap.
 
 ### Ainda não implementado
