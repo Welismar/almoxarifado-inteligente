@@ -50,7 +50,21 @@ No PowerShell, `copy` é o alias de `Copy-Item`. Preencha `.env.local` antes de 
 4. Faça um novo deploy após salvar as variáveis.
 5. Não configure `SUPABASE_SERVICE_ROLE_KEY` enquanto não houver uma rota server-side que realmente precise dela.
 
-## 5. Checklist antes de dizer “publicado”
+## 5. Contrato de autenticação
+
+As rotas server-side usam a chave pública do Supabase e mantêm os tokens em cookies `httpOnly`:
+
+```text
+POST /api/auth/login
+body: { "email": "usuario@empresa.com", "password": "..." }
+
+GET /api/auth/me
+POST /api/auth/logout
+```
+
+O usuário precisa existir no Supabase Auth e ter um registro correspondente em `public.profiles` para acessar os dados protegidos pela RLS. A tela de login e o refresh automático da sessão ainda são etapas seguintes.
+
+## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.
 - [ ] O primeiro commit está no GitHub.

@@ -13,7 +13,7 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [x] Saldos e movimentações imutáveis no banco.
 - [x] Auditoria de eventos.
 - [x] Cliente REST Supabase no Next.js, com variáveis de ambiente e token opcional.
-- [ ] Login com Supabase Auth e perfis.
+- [x] Rotas base de login, sessão atual e logout com Supabase Auth.
 
 ### Fase 2: rotina do almoxarife
 
