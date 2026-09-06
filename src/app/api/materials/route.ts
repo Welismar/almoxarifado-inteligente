@@ -17,6 +17,28 @@ async function getAccessToken() {
   return cookieStore.get("stockwise-access-token")?.value;
 }
 
+async function getCompanyId(url: string, anonKey: string, accessToken: string) {
+  const userResponse = await fetch(`${url}/auth/v1/user`, {
+    headers: { apikey: anonKey, Authorization: `Bearer ${accessToken}` },
+    cache: "no-store",
+  });
+
+  if (!userResponse.ok) return null;
+
+  const user = (await userResponse.json()) as { id?: string };
+  if (!user.id) return null;
+
+  const profileResponse = await fetch(`${url}/rest/v1/profiles?select=company_id&id=eq.${user.id}`, {
+    headers: { apikey: anonKey, Authorization: `Bearer ${accessToken}` },
+    cache: "no-store",
+  });
+
+  if (!profileResponse.ok) return null;
+
+  const profiles = (await profileResponse.json()) as Array<{ company_id: string }>;
+  return profiles[0]?.company_id ?? null;
+}
+
 export async function GET() {
   const accessToken = await getAccessToken();
 
@@ -62,6 +84,12 @@ export async function POST(request: Request) {
 
   try {
     const { url, anonKey } = getSupabaseConfig();
+    const companyId = await getCompanyId(url, anonKey, accessToken);
+
+    if (!companyId) {
+      return NextResponse.json({ error: "Usuário sem empresa vinculada." }, { status: 403 });
+    }
+
     const response = await fetch(`${url}/rest/v1/materials`, {
       method: "POST",
       headers: {
@@ -71,6 +99,7 @@ export async function POST(request: Request) {
         Prefer: "return=representation",
       },
       body: JSON.stringify({
+        company_id: companyId,
         code: body.code.trim(),
         name: body.name.trim(),
         unit: body.unit.trim().toUpperCase(),

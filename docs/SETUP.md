@@ -69,7 +69,7 @@ A tela está disponível em `/login`. O dashboard (`/`) exige o cookie de acesso
 
 Quando houver registros em `stock_balances`, os alertas da visão geral consultam `quantity` e os dados relacionados de `materials` usando o token do usuário. Se ainda não houver saldo cadastrado, a interface exibe os dados de demonstração para permitir estudo visual.
 
-O cadastro inicial está em `/materiais`. Ele lista e cria registros em `public.materials` pela rota protegida `/api/materials`; o usuário autenticado precisa pertencer a uma empresa e ter a migration aplicada.
+O cadastro inicial está em `/materiais`. Ele lista e cria registros em `public.materials` pela rota protegida `/api/materials`; o usuário autenticado precisa pertencer a uma empresa, ter um registro em `public.profiles` e ter a migration aplicada. A API deriva `company_id` do perfil da sessão, em vez de confiar no formulário do navegador.
 
 ## 6. Checklist antes de dizer “publicado”
 
