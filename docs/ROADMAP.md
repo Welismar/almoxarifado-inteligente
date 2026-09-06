@@ -33,6 +33,7 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [x] Relatório de posição de estoque com impressão para PDF.
 - [x] Relatório de consumo e perdas por material, obra e período.
 - [ ] CRUD de obras, locais, categorias e fornecedores.
+- [x] Cadastro e listagem de fornecedores com isolamento por empresa.
 - [ ] Entrada com nota fiscal, lote, validade e quarentena.
 - [ ] Requisição, aprovação, separação e saída.
 - [ ] Devolução, perda, avaria e transferência.

@@ -101,6 +101,8 @@ O relatório de posição está em `/relatorios/estoque` e consulta `stock_balan
 
 O relatório de consumo e perdas está em `/relatorios/consumo`. Ele consulta movimentos `issue` e `loss`, aceita `projectId`, `from` e `to`, consolida por material e permite exportar CSV ou imprimir para PDF.
 
+O cadastro de fornecedores está em `/fornecedores`, com `GET/POST /api/suppliers` e a migration `006_supplier_insert_policy.sql`. A empresa é derivada do perfil autenticado e não pode ser enviada livremente pelo formulário.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.
