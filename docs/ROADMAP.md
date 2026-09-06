@@ -66,6 +66,8 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [x] IndexedDB e sincronização automática para movimentações offline.
 - [x] Fila offline para movimentações e requisições.
 - [ ] Fila offline para inventário, fotos e anexos.
+- [x] Inventário por contagem física com cálculo de diferença e fila offline.
+- [ ] Aprovação de divergência e ajuste de estoque.
 - [ ] Fila idempotente de sincronização.
 - [ ] Fotos e documentos no Supabase Storage.
 - [ ] Notificações e assistente de IA com escopo por permissão.

@@ -113,7 +113,9 @@ Pedidos estão em `/pedidos`, com `GET/PATCH /api/purchase-orders` e a migration
 
 A fundação PWA está ativa com `/manifest.webmanifest` e `public/sw.js`. Ela permite instalação e fallback básico da tela de login; IndexedDB, fila idempotente e sincronização offline de entradas/saídas ainda não foram implementados.
 
-Movimentações em `/movimentacoes` e requisições em `/requisicoes` usam `src/lib/offline-queue.ts`: se a rede falhar, o POST fica em IndexedDB e é reenviado no evento `online`. O banco continua sendo a autoridade final e rejeita operações inválidas; inventário, fotos e anexos ainda não entram nessa fila.
+Movimentações em `/movimentacoes` e requisições em `/requisicoes` usam `src/lib/offline-queue.ts`: se a rede falhar, o POST fica em IndexedDB e é reenviado no evento `online`. O banco continua sendo a autoridade final e rejeita operações inválidas; fotos e anexos ainda não entram nessa fila.
+
+O inventário está em `/inventario`, com `POST /api/inventory` e a migration `011_inventory_function.sql`. A contagem grava saldo do sistema, quantidade física e diferença em `inventory_items`, mas não ajusta o estoque automaticamente. A operação também pode ser enfileirada offline; aprovação da divergência será adicionada depois.
 
 ## 6. Checklist antes de dizer “publicado”
 
