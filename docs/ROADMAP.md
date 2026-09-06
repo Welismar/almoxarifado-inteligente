@@ -62,7 +62,7 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 
 ### Fase 5: operação resiliente
 
-- [ ] PWA instalável.
+- [x] Manifest e service worker para instalação PWA e fallback básico.
 - [ ] IndexedDB para consultas e operações offline.
 - [ ] Fila idempotente de sincronização.
 - [ ] Fotos e documentos no Supabase Storage.

@@ -111,6 +111,8 @@ A comparação está em `/compras/comparar`, com `GET/PATCH /api/quotes/compare`
 
 Pedidos estão em `/pedidos`, com `GET/PATCH /api/purchase-orders` e a migration `010_purchase_order_workflow.sql`. O fluxo é `pending -> approved -> sent -> received`; o recebimento exige almoxarifado e local e chama a mesma transação de entrada que atualiza saldo, Kardex e auditoria.
 
+A fundação PWA está ativa com `/manifest.webmanifest` e `public/sw.js`. Ela permite instalação e fallback básico da tela de login; IndexedDB, fila idempotente e sincronização offline de entradas/saídas ainda não foram implementados.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.
