@@ -103,6 +103,8 @@ O relatório de consumo e perdas está em `/relatorios/consumo`. Ele consulta mo
 
 O cadastro de fornecedores está em `/fornecedores`, com `GET/POST /api/suppliers` e a migration `006_supplier_insert_policy.sql`. A empresa é derivada do perfil autenticado e não pode ser enviada livremente pelo formulário.
 
+A solicitação de compra está em `/compras`, com `POST /api/purchases` e a migration `007_purchase_request_function.sql`. Ela começa com status `pending`, é vinculada à obra/material e registra a auditoria; cotações e pedidos ainda são etapas seguintes.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.
