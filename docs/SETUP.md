@@ -109,6 +109,8 @@ O cadastro de cotações está em `/cotacoes`, com `GET/POST /api/quotes` e a mi
 
 A comparação está em `/compras/comparar`, com `GET/PATCH /api/quotes/compare` e a migration `009_purchase_order_function.sql`. Perfis de compras, admin, gerente e diretoria podem selecionar uma cotação; as alternativas são rejeitadas, a solicitação vira `ordered` e um pedido é criado com total, fornecedor e itens.
 
+Pedidos estão em `/pedidos`, com `GET/PATCH /api/purchase-orders` e a migration `010_purchase_order_workflow.sql`. O fluxo é `pending -> approved -> sent -> received`; o recebimento exige almoxarifado e local e chama a mesma transação de entrada que atualiza saldo, Kardex e auditoria.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.

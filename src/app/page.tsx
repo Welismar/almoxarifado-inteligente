@@ -71,6 +71,7 @@ export default async function Home() {
           <a className="nav-item" href="/compras"><span className="nav-icon">$</span> Compras</a>
           <a className="nav-item" href="/cotacoes"><span className="nav-icon">≋</span> Cotações</a>
           <a className="nav-item" href="/compras/comparar"><span className="nav-icon">⇄</span> Comparar compras</a>
+          <a className="nav-item" href="/pedidos"><span className="nav-icon">▣</span> Pedidos</a>
         </nav>
         <div className="nav-section">GESTÃO</div>
         <nav className="nav-list">

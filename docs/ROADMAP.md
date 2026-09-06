@@ -38,6 +38,7 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [x] Cotação vinculada à solicitação e ao fornecedor.
 - [x] Comparação e seleção de cotação com criação automática do pedido.
 - [ ] Aprovação financeira, envio e recebimento do pedido.
+- [x] Aprovação financeira, envio e recebimento do pedido com entrada transacional no estoque.
 - [ ] Entrada com nota fiscal, lote, validade e quarentena.
 - [ ] Requisição, aprovação, separação e saída.
 - [ ] Devolução, perda, avaria e transferência.
