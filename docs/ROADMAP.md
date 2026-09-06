@@ -36,7 +36,8 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [x] Cadastro e listagem de fornecedores com isolamento por empresa.
 - [x] Solicitação de compra vinculada à obra e ao material.
 - [x] Cotação vinculada à solicitação e ao fornecedor.
-- [ ] Comparação de múltiplas cotações, aprovação de compras e pedido ao fornecedor.
+- [x] Comparação e seleção de cotação com criação automática do pedido.
+- [ ] Aprovação financeira, envio e recebimento do pedido.
 - [ ] Entrada com nota fiscal, lote, validade e quarentena.
 - [ ] Requisição, aprovação, separação e saída.
 - [ ] Devolução, perda, avaria e transferência.

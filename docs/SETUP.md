@@ -107,6 +107,8 @@ A solicitação de compra está em `/compras`, com `POST /api/purchases` e a mig
 
 O cadastro de cotações está em `/cotacoes`, com `GET/POST /api/quotes` e a migration `008_purchase_quote_function.sql`. Cada registro vincula fornecedor e solicitação e guarda preço, frete, prazo e condição de pagamento; a solicitação passa para `quoted`.
 
+A comparação está em `/compras/comparar`, com `GET/PATCH /api/quotes/compare` e a migration `009_purchase_order_function.sql`. Perfis de compras, admin, gerente e diretoria podem selecionar uma cotação; as alternativas são rejeitadas, a solicitação vira `ordered` e um pedido é criado com total, fornecedor e itens.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.
