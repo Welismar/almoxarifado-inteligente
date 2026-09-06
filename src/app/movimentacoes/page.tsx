@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { enqueueOfflineRequest } from "@/lib/offline-queue";
 
 type Project = { id: string; name: string };
 type Warehouse = { id: string; name: string; project_id: string };
@@ -42,10 +43,17 @@ export default function MovementsPage() {
     setError("");
     setMessage("");
     setIsSaving(true);
-    const response = await fetch("/api/movements", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, quantity: Number(form.quantity), unitCost: Number(form.unitCost || selectedMaterial?.average_cost || 0) }) });
-    const result = (await response.json()) as { error?: string };
-    if (!response.ok) setError(result.error ?? "Movimentação recusada.");
-    else { setMessage("Movimentação registrada e saldo atualizado."); setForm(initialForm); }
+    const body = { ...form, quantity: Number(form.quantity), unitCost: Number(form.unitCost || selectedMaterial?.average_cost || 0) };
+    try {
+      const response = await fetch("/api/movements", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      const result = (await response.json()) as { error?: string };
+      if (!response.ok) setError(result.error ?? "Movimentação recusada.");
+      else { setMessage("Movimentação registrada e saldo atualizado."); setForm(initialForm); }
+    } catch {
+      await enqueueOfflineRequest("/api/movements", body);
+      setMessage("Sem conexão. Movimentação salva e será sincronizada quando a internet voltar.");
+      setForm(initialForm);
+    }
     setIsSaving(false);
   }
 
