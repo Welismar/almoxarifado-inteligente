@@ -60,11 +60,12 @@ body: { "email": "usuario@empresa.com", "password": "..." }
 
 GET /api/auth/me
 POST /api/auth/logout
+POST /api/auth/refresh
 ```
 
 O usuário precisa existir no Supabase Auth e ter um registro correspondente em `public.profiles` para acessar os dados protegidos pela RLS. A tela de login e o refresh automático da sessão ainda são etapas seguintes.
 
-A tela está disponível em `/login`. Nesta etapa o dashboard ainda pode ser aberto diretamente; a proteção de rota será adicionada junto com o refresh automático para evitar expiração inesperada durante a operação.
+A tela está disponível em `/login`. O dashboard (`/`) exige o cookie de acesso. Quando o access token expirar, o cliente poderá chamar `/api/auth/refresh` para renovar a sessão usando o refresh token protegido.
 
 ## 6. Checklist antes de dizer “publicado”
 

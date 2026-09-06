@@ -15,7 +15,7 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [x] Cliente REST Supabase no Next.js, com variáveis de ambiente e token opcional.
 - [x] Rotas base de login, sessão atual e logout com Supabase Auth.
 - [x] Tela de login responsiva integrada às rotas de autenticação.
-- [ ] Proteção automática do dashboard e refresh da sessão.
+- [x] Proteção automática do dashboard e endpoint de refresh da sessão.
 
 ### Fase 2: rotina do almoxarife
 

@@ -1,3 +1,6 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
 const stockItems = [
   { name: "Luva nitrílica", category: "EPI", quantity: 18, minimum: 30, status: "critical" },
   { name: "Papel A4 75g", category: "Escritório", quantity: 124, minimum: 80, status: "healthy" },
@@ -11,7 +14,13 @@ const movements = [
   { item: "Detergente neutro", action: "Entrada", amount: "+ 20 un", person: "Mariana Costa", time: "Ontem, 16:30", tone: "in" },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const cookieStore = await cookies();
+
+  if (!cookieStore.get("stockwise-access-token")) {
+    redirect("/login");
+  }
+
   return (
     <div className="app-shell">
       <aside className="sidebar">
