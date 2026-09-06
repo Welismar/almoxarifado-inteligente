@@ -26,6 +26,7 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [x] Criação de requisição com prioridade, frente, serviço e centro de custo.
 - [x] Aprovação de requisição com controle de perfil e auditoria.
 - [x] Separação/picking e baixa vinculada à requisição.
+- [x] Kardex por material com saldo acumulado e histórico imutável.
 - [ ] CRUD de obras, locais, categorias e fornecedores.
 - [ ] Entrada com nota fiscal, lote, validade e quarentena.
 - [ ] Requisição, aprovação, separação e saída.
