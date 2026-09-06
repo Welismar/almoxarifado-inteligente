@@ -35,7 +35,8 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [ ] CRUD de obras, locais, categorias e fornecedores.
 - [x] Cadastro e listagem de fornecedores com isolamento por empresa.
 - [x] Solicitação de compra vinculada à obra e ao material.
-- [ ] Cotações, aprovação de compras e pedido ao fornecedor.
+- [x] Cotação vinculada à solicitação e ao fornecedor.
+- [ ] Comparação de múltiplas cotações, aprovação de compras e pedido ao fornecedor.
 - [ ] Entrada com nota fiscal, lote, validade e quarentena.
 - [ ] Requisição, aprovação, separação e saída.
 - [ ] Devolução, perda, avaria e transferência.
