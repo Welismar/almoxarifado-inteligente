@@ -87,6 +87,8 @@ Movimentações usam `POST /api/movements` e a função transacional `record_sto
 
 Para `issue` e `loss`, o banco rejeita a operação se o saldo disponível for insuficiente. Toda movimentação aceita gera uma linha em `stock_movements` e outra em `audit_log`.
 
+A interface operacional está em `/movimentacoes`. Ela carrega as opções permitidas pela RLS em `/api/movement-options` e envia o formulário para `/api/movements`.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.

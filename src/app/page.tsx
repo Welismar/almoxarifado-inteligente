@@ -62,7 +62,7 @@ export default async function Home() {
         <nav className="nav-list" aria-label="Navegação principal">
           <a className="nav-item active" href="#resumo"><span className="nav-icon">⌂</span> Visão geral</a>
           <a className="nav-item" href="/materiais"><span className="nav-icon">▦</span> Estoque <span className="nav-badge">2</span></a>
-          <a className="nav-item" href="#movimentacoes"><span className="nav-icon">↕</span> Movimentações</a>
+          <a className="nav-item" href="/movimentacoes"><span className="nav-icon">↕</span> Movimentações</a>
           <a className="nav-item" href="#fornecedores"><span className="nav-icon">♧</span> Fornecedores</a>
         </nav>
         <div className="nav-section">GESTÃO</div>
