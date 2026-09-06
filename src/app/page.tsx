@@ -1,7 +1,18 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { supabaseRest } from "@/lib/supabase";
 
-const stockItems = [
+type BalanceRow = {
+  quantity: number;
+  materials: {
+    name: string;
+    unit: string;
+    minimum_stock: number;
+    status: "active" | "blocked" | "quarantine" | "inactive";
+  };
+};
+
+const demoStockItems = [
   { name: "Luva nitrílica", category: "EPI", quantity: 18, minimum: 30, status: "critical" },
   { name: "Papel A4 75g", category: "Escritório", quantity: 124, minimum: 80, status: "healthy" },
   { name: "Detergente neutro", category: "Limpeza", quantity: 42, minimum: 35, status: "attention" },
@@ -16,9 +27,31 @@ const movements = [
 
 export default async function Home() {
   const cookieStore = await cookies();
+  const accessToken = cookieStore.get("stockwise-access-token")?.value;
 
-  if (!cookieStore.get("stockwise-access-token")) {
+  if (!accessToken) {
     redirect("/login");
+  }
+
+  let stockItems = demoStockItems;
+
+  try {
+    const balances = await supabaseRest<BalanceRow>("stock_balances", {
+      select: "quantity,materials(name,unit,minimum_stock,status)",
+      accessToken,
+    });
+
+    if (balances.length > 0) {
+      stockItems = balances.slice(0, 4).map((balance) => ({
+        name: balance.materials.name,
+        category: "Material",
+        quantity: Number(balance.quantity),
+        minimum: Number(balance.materials.minimum_stock),
+        status: balance.materials.status === "active" ? "attention" : "critical",
+      }));
+    }
+  } catch {
+    // A demo view keeps the dashboard useful before the first database seed.
   }
 
   return (

@@ -67,6 +67,8 @@ O usuário precisa existir no Supabase Auth e ter um registro correspondente em 
 
 A tela está disponível em `/login`. O dashboard (`/`) exige o cookie de acesso. Quando o access token expirar, o cliente poderá chamar `/api/auth/refresh` para renovar a sessão usando o refresh token protegido.
 
+Quando houver registros em `stock_balances`, os alertas da visão geral consultam `quantity` e os dados relacionados de `materials` usando o token do usuário. Se ainda não houver saldo cadastrado, a interface exibe os dados de demonstração para permitir estudo visual.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.

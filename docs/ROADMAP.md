@@ -16,6 +16,7 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [x] Rotas base de login, sessão atual e logout com Supabase Auth.
 - [x] Tela de login responsiva integrada às rotas de autenticação.
 - [x] Proteção automática do dashboard e endpoint de refresh da sessão.
+- [x] Alertas do dashboard alimentados por saldos reais do Supabase, com fallback demo.
 
 ### Fase 2: rotina do almoxarife
 
