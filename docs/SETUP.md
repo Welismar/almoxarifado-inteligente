@@ -64,6 +64,8 @@ POST /api/auth/logout
 
 O usuário precisa existir no Supabase Auth e ter um registro correspondente em `public.profiles` para acessar os dados protegidos pela RLS. A tela de login e o refresh automático da sessão ainda são etapas seguintes.
 
+A tela está disponível em `/login`. Nesta etapa o dashboard ainda pode ser aberto diretamente; a proteção de rota será adicionada junto com o refresh automático para evitar expiração inesperada durante a operação.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.
