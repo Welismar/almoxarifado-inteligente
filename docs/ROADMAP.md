@@ -20,7 +20,8 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 
 ### Fase 2: rotina do almoxarife
 
-- [ ] CRUD de obras, locais, categorias, materiais e fornecedores.
+- [x] CRUD inicial de materiais com leitura e cadastro protegidos por sessão/RLS.
+- [ ] CRUD de obras, locais, categorias e fornecedores.
 - [ ] Entrada com nota fiscal, lote, validade e quarentena.
 - [ ] Requisição, aprovação, separação e saída.
 - [ ] Devolução, perda, avaria e transferência.
