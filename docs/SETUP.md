@@ -93,6 +93,8 @@ Requisições começam em `pending` pela tela `/requisicoes` e pela rota `POST /
 
 A aprovação está disponível em `/aprovacoes`, com `GET/PATCH /api/requests/pending`. Somente perfis `admin`, `mestre`, `engenheiro`, `gerente` e `diretoria` podem aprovar pela função `approve_material_request`; a quantidade aprovada não pode exceder a solicitada.
 
+A separação está em `/separacao`, com `GET/PATCH /api/requests/approved`. O operador seleciona o almoxarifado e o local físico; a função `issue_material_request` chama a mesma transação de saída, atualiza `issued_quantity`, registra auditoria e finaliza a requisição.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.
