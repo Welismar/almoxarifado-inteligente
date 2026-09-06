@@ -30,6 +30,7 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [x] Filtros de Kardex por obra, período, lote e tipo.
 - [x] Exportação CSV do Kardex.
 - [ ] Exportação PDF e relatórios avançados.
+- [x] Relatório de posição de estoque com impressão para PDF.
 - [ ] CRUD de obras, locais, categorias e fornecedores.
 - [ ] Entrada com nota fiscal, lote, validade e quarentena.
 - [ ] Requisição, aprovação, separação e saída.
