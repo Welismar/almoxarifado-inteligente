@@ -23,6 +23,8 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 - [x] CRUD inicial de materiais com leitura e cadastro protegidos por sessão/RLS.
 - [x] API transacional de movimentações com saldo não negativo e auditoria.
 - [x] Tela de entrada/saída com seleção de obra, almoxarifado, local e material.
+- [x] Criação de requisição com prioridade, frente, serviço e centro de custo.
+- [ ] Aprovação, separação e baixa da requisição.
 - [ ] CRUD de obras, locais, categorias e fornecedores.
 - [ ] Entrada com nota fiscal, lote, validade e quarentena.
 - [ ] Requisição, aprovação, separação e saída.

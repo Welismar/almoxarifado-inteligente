@@ -89,6 +89,8 @@ Para `issue` e `loss`, o banco rejeita a operação se o saldo disponível for i
 
 A interface operacional está em `/movimentacoes`. Ela carrega as opções permitidas pela RLS em `/api/movement-options` e envia o formulário para `/api/movements`.
 
+Requisições começam em `pending` pela tela `/requisicoes` e pela rota `POST /api/requests`. A função `create_material_request` valida a empresa, a obra e o material, grava o cabeçalho e o item na mesma transação e cria a auditoria. Aprovação e separação ainda serão implementadas.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.
