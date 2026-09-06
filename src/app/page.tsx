@@ -72,6 +72,7 @@ export default async function Home() {
         <div className="nav-section">GESTÃO</div>
         <nav className="nav-list">
           <a className="nav-item" href="/relatorios/estoque"><span className="nav-icon">▤</span> Relatórios</a>
+          <a className="nav-item" href="/relatorios/consumo"><span className="nav-icon">◒</span> Consumo e perdas</a>
           <a className="nav-item" href="#configuracoes"><span className="nav-icon">⚙</span> Configurações</a>
         </nav>
         <div className="sidebar-footer"><div className="user-avatar">MC</div><div><strong>Mariana Costa</strong><small>Administrador</small></div><span className="more">•••</span></div>

@@ -99,6 +99,8 @@ O Kardex está em `/kardex`. A rota `GET /api/kardex?materialId=...` aceita tamb
 
 O relatório de posição está em `/relatorios/estoque` e consulta `stock_balances` com os materiais, almoxarifados e locais permitidos pela RLS. O botão **Imprimir / salvar PDF** usa o layout de impressão do navegador.
 
+O relatório de consumo e perdas está em `/relatorios/consumo`. Ele consulta movimentos `issue` e `loss`, aceita `projectId`, `from` e `to`, consolida por material e permite exportar CSV ou imprimir para PDF.
+
 ## 6. Checklist antes de dizer “publicado”
 
 - [ ] `git remote -v` mostra o repositório correto.
