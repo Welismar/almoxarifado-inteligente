@@ -95,7 +95,7 @@ A aprovação está disponível em `/aprovacoes`, com `GET/PATCH /api/requests/p
 
 A separação está em `/separacao`, com `GET/PATCH /api/requests/approved`. O operador seleciona o almoxarifado e o local físico; a função `issue_material_request` chama a mesma transação de saída, atualiza `issued_quantity`, registra auditoria e finaliza a requisição.
 
-O Kardex está em `/kardex`. A rota `GET /api/kardex?materialId=...` consulta o material e seus movimentos permitidos pela RLS; a interface calcula o saldo acumulado sem alterar o histórico.
+O Kardex está em `/kardex`. A rota `GET /api/kardex?materialId=...` aceita também `projectId`, `from`, `to`, `lot` e `type`. A interface calcula o saldo acumulado sem alterar o histórico e exporta o resultado filtrado em CSV.
 
 ## 6. Checklist antes de dizer “publicado”
 
