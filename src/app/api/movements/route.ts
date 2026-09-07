@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getProfile, hasPermission } from "@/lib/permissions";
 
 const movementTypes = new Set(["receipt", "issue", "return", "transfer", "adjustment", "loss", "inventory"]);
 
@@ -11,6 +12,8 @@ export async function POST(request: Request) {
 
   if (!accessToken) return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
   if (!url || !anonKey) return NextResponse.json({ error: "Supabase não configurado." }, { status: 500 });
+  const profile = await getProfile(url, anonKey, accessToken);
+  if (!profile || !hasPermission(profile.profile.role, "inventory:write")) return NextResponse.json({ error: "Seu perfil não pode registrar movimentações." }, { status: 403 });
 
   const body = (await request.json()) as Record<string, unknown>;
   const requiredIds = ["projectId", "warehouseId", "materialId", "locationId"];

@@ -3,6 +3,7 @@ export const permissions = [
   "materials:write",
   "integration:write",
   "approvals:review",
+  "inventory:write",
 ] as const;
 
 export type Permission = (typeof permissions)[number];
@@ -10,16 +11,16 @@ export type UserRole = "admin" | "almoxarife" | "encarregado" | "mestre" | "enge
 
 const rolePermissions: Record<UserRole, Permission[]> = {
   admin: [...permissions],
-  almoxarife: ["materials:write"],
-  encarregado: ["purchases:create"],
-  mestre: ["purchases:create"],
-  engenheiro: ["purchases:create", "approvals:review"],
+  almoxarife: ["materials:write", "inventory:write"],
+  encarregado: ["purchases:create", "inventory:write"],
+  mestre: ["purchases:create", "inventory:write"],
+  engenheiro: ["purchases:create", "approvals:review", "inventory:write"],
   compras: ["purchases:create", "materials:write", "integration:write"],
   qualidade: [],
   financeiro: ["approvals:review"],
   gerente: ["purchases:create", "approvals:review"],
   diretoria: ["purchases:create", "approvals:review"],
-  manutencao: [],
+  manutencao: ["inventory:write"],
 };
 
 export function getPermissions(role: string | null | undefined) {

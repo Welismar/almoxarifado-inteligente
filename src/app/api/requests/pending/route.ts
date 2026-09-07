@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getProfile, hasPermission } from "@/lib/permissions";
 
 async function context() {
   const cookieStore = await cookies();
@@ -27,6 +28,8 @@ export async function PATCH(request: Request) {
   const { accessToken, url, anonKey } = await context();
   if (!accessToken) return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
   if (!url || !anonKey) return NextResponse.json({ error: "Supabase não configurado." }, { status: 500 });
+  const profile = await getProfile(url, anonKey, accessToken);
+  if (!profile || !hasPermission(profile.profile.role, "approvals:review")) return NextResponse.json({ error: "Seu perfil não pode aprovar requisições." }, { status: 403 });
   const body = (await request.json()) as { requestId?: string; approvedQuantity?: number };
   if (!body.requestId) return NextResponse.json({ error: "Requisição obrigatória." }, { status: 400 });
 
