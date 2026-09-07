@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getProfile, hasPermission } from "@/lib/permissions";
 
 async function context() { const cookieStore = await cookies(); return { accessToken: cookieStore.get("stockwise-access-token")?.value, url: process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, ""), anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY }; }
 
@@ -16,6 +17,8 @@ export async function PATCH(request: Request) {
   const { accessToken, url, anonKey } = await context();
   if (!accessToken) return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
   if (!url || !anonKey) return NextResponse.json({ error: "Supabase não configurado." }, { status: 500 });
+  const profile = await getProfile(url, anonKey, accessToken);
+  if (!profile || !hasPermission(profile.profile.role, "purchases:approve")) return NextResponse.json({ error: "Seu perfil não pode escolher a cotação vencedora." }, { status: 403 });
   const body = (await request.json()) as { quoteId?: string };
   if (!body.quoteId) return NextResponse.json({ error: "Cotação obrigatória." }, { status: 400 });
   const response = await fetch(`${url}/rest/v1/rpc/select_purchase_quote`, { method: "POST", headers: { apikey: anonKey, Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" }, body: JSON.stringify({ p_quote_id: body.quoteId }) });

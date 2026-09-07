@@ -1,5 +1,6 @@
 export const permissions = [
   "purchases:create",
+  "purchases:approve",
   "materials:write",
   "integration:write",
   "approvals:review",
@@ -15,11 +16,11 @@ const rolePermissions: Record<UserRole, Permission[]> = {
   encarregado: ["purchases:create", "inventory:write"],
   mestre: ["purchases:create", "inventory:write"],
   engenheiro: ["purchases:create", "approvals:review", "inventory:write"],
-  compras: ["purchases:create", "materials:write", "integration:write"],
+  compras: ["purchases:create", "purchases:approve", "materials:write", "integration:write"],
   qualidade: [],
   financeiro: ["approvals:review"],
-  gerente: ["purchases:create", "approvals:review"],
-  diretoria: ["purchases:create", "approvals:review"],
+  gerente: ["purchases:create", "purchases:approve", "approvals:review"],
+  diretoria: ["purchases:create", "purchases:approve", "approvals:review"],
   manutencao: ["inventory:write"],
 };
 

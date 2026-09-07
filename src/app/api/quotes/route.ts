@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getProfile, hasPermission } from "@/lib/permissions";
 
 async function context() { const cookieStore = await cookies(); return { accessToken: cookieStore.get("stockwise-access-token")?.value, url: process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, ""), anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY }; }
 
@@ -20,6 +21,8 @@ export async function POST(request: Request) {
   const { accessToken, url, anonKey } = await context();
   if (!accessToken) return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
   if (!url || !anonKey) return NextResponse.json({ error: "Supabase não configurado." }, { status: 500 });
+  const profile = await getProfile(url, anonKey, accessToken);
+  if (!profile || !hasPermission(profile.profile.role, "purchases:create")) return NextResponse.json({ error: "Seu perfil não pode registrar cotações." }, { status: 403 });
   const body = (await request.json()) as Record<string, unknown>;
   const price = Number(body.unitPrice);
   if (!["requestId", "supplierId"].every((field) => typeof body[field] === "string" && body[field])) return NextResponse.json({ error: "Solicitação e fornecedor são obrigatórios." }, { status: 400 });
