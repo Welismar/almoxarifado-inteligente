@@ -13,6 +13,15 @@ export default function PurchasesPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setForm((current) => ({
+      ...current,
+      projectId: params.get("projectId") ?? current.projectId,
+      materialId: params.get("materialId") ?? current.materialId,
+      quantity: params.get("quantity") ?? current.quantity,
+    }));
+  }, []);
   useEffect(() => { fetch("/api/movement-options", { cache: "no-store" }).then(async (response) => { const result = (await response.json()) as { projects?: Option[]; materials?: Option[]; error?: string }; if (!response.ok) throw new Error(result.error ?? "Não foi possível carregar as opções."); setProjects(result.projects ?? []); setMaterials(result.materials ?? []); }).catch((reason: Error) => setError(reason.message)).finally(() => setLoading(false)); }, []);
   function update(field: keyof typeof initialForm, value: string) { setForm((current) => ({ ...current, [field]: value })); }
   async function submit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setError(""); setMessage(""); setSaving(true); const response = await fetch("/api/purchases", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, quantity: Number(form.quantity), estimatedUnitCost: Number(form.estimatedUnitCost || 0) }) }); const result = (await response.json()) as { error?: string }; if (!response.ok) setError(result.error ?? "Não foi possível criar a solicitação."); else { setMessage("Solicitação de compra criada."); setForm(initialForm); } setSaving(false); }

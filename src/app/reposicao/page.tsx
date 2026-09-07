@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 
 type ReplenishmentItem = {
+  materialId: string;
+  projectId: string;
   material: string;
   code: string;
   unit: string;
@@ -11,6 +13,10 @@ type ReplenishmentItem = {
   reserved: number;
   available: number;
   deficit: number;
+  consumption90d: number;
+  averageDailyConsumption: number;
+  coverageDays: number | null;
+  targetStock: number;
   warehouse: string;
   location: string;
   suggestedQty: number;
@@ -91,7 +97,9 @@ export default function ReplenishmentPage() {
                   <th>MIN.</th>
                   <th>FALTA</th>
                   <th>SUGESTÃO</th>
+                  <th>COBERTURA</th>
                   <th>PRIORIDADE</th>
+                  <th>AÇÃO</th>
                 </tr>
               </thead>
               <tbody>
@@ -105,7 +113,9 @@ export default function ReplenishmentPage() {
                     <td>{item.minimum} {item.unit}</td>
                     <td>{item.deficit} {item.unit}</td>
                     <td>{item.suggestedQty} {item.unit}</td>
+                    <td>{item.coverageDays === null ? "Sem consumo" : `${item.coverageDays} dias`}</td>
                     <td><span className={`status-tag ${item.priority === "Crítica" ? "low" : ""}`}>{item.priority}</span></td>
+                    <td><a className="select-button" href={`/compras?projectId=${encodeURIComponent(item.projectId)}&materialId=${encodeURIComponent(item.materialId)}&quantity=${item.suggestedQty}`}>Criar compra</a></td>
                   </tr>
                 ))}
               </tbody>
