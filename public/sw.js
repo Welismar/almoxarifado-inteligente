@@ -1,5 +1,5 @@
-const CACHE_NAME = "stockwise-shell-v2";
-const SHELL = ["/", "/login", "/manifest.webmanifest"];
+const CACHE_NAME = "stockwise-shell-v3";
+const SHELL = ["/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -15,6 +15,14 @@ self.addEventListener("activate", (event) => {
 
 self.addEventListener("fetch", (event) => {
   if (event.request.method !== "GET") return;
+
+  // HTML routes depend on the current auth cookie and must always reach Next.js.
+  if (event.request.mode === "navigate") {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match("/manifest.webmanifest") || Response.error()),
+    );
+    return;
+  }
 
   event.respondWith(
     caches.match(event.request).then((cached) => {
