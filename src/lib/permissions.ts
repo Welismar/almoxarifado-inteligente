@@ -5,6 +5,7 @@ export const permissions = [
   "integration:write",
   "approvals:review",
   "inventory:write",
+  "inventory:approve",
 ] as const;
 
 export type Permission = (typeof permissions)[number];
@@ -17,10 +18,10 @@ const rolePermissions: Record<UserRole, Permission[]> = {
   mestre: ["purchases:create", "inventory:write"],
   engenheiro: ["purchases:create", "approvals:review", "inventory:write"],
   compras: ["purchases:create", "purchases:approve", "materials:write", "integration:write"],
-  qualidade: [],
+  qualidade: ["inventory:approve"],
   financeiro: ["approvals:review"],
-  gerente: ["purchases:create", "purchases:approve", "approvals:review"],
-  diretoria: ["purchases:create", "purchases:approve", "approvals:review"],
+  gerente: ["purchases:create", "purchases:approve", "approvals:review", "inventory:approve"],
+  diretoria: ["purchases:create", "purchases:approve", "approvals:review", "inventory:approve"],
   manutencao: ["inventory:write"],
 };
 
