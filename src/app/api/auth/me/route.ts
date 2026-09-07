@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getProfile } from "@/lib/permissions";
 
 export async function GET() {
   const cookieStore = await cookies();
@@ -11,17 +12,10 @@ export async function GET() {
     return NextResponse.json({ user: null }, { status: 401 });
   }
 
-  const response = await fetch(`${url.replace(/\/$/, "")}/auth/v1/user`, {
-    headers: {
-      apikey: anonKey,
-      Authorization: `Bearer ${accessToken}`,
-    },
-    cache: "no-store",
-  });
-
-  if (!response.ok) {
+  const profile = await getProfile(url.replace(/\/$/, ""), anonKey, accessToken);
+  if (!profile) {
     return NextResponse.json({ user: null }, { status: 401 });
   }
 
-  return NextResponse.json({ user: await response.json() });
+  return NextResponse.json(profile);
 }

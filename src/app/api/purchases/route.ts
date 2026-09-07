@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getProfile, hasPermission } from "@/lib/permissions";
 
 export async function POST(request: Request) {
   const cookieStore = await cookies();
@@ -8,6 +9,9 @@ export async function POST(request: Request) {
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!accessToken) return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
   if (!url || !anonKey) return NextResponse.json({ error: "Supabase não configurado." }, { status: 500 });
+  const profile = await getProfile(url, anonKey, accessToken);
+  if (!profile) return NextResponse.json({ error: "Usuário sem perfil vinculado." }, { status: 403 });
+  if (!hasPermission(profile.profile.role, "purchases:create")) return NextResponse.json({ error: "Seu perfil não pode criar solicitações de compra." }, { status: 403 });
   const body = (await request.json()) as Record<string, unknown>;
   const quantity = Number(body.quantity);
   if (!["projectId", "materialId"].every((field) => typeof body[field] === "string" && body[field])) return NextResponse.json({ error: "Obra e material são obrigatórios." }, { status: 400 });
