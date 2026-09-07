@@ -1,33 +1,39 @@
 # Stockwise
 
-Sistema de almoxarifado inteligente para construção civil. O produto acompanha o material desde a necessidade da obra até a entrada, armazenamento, retirada, consumo, custo e auditoria.
+Sistema de almoxarifado inteligente para operação de obra e estoque. O projeto acompanha materiais desde a necessidade da obra até a movimentação, requisição, aprovação, consumo e inventário.
 
 ## Estado atual
 
-### Implementado
+### Implementado e validado
 
-- Dashboard responsivo com visão de estoque, alertas e movimentações de demonstração.
-- Identidade visual Stockwise para operação de almoxarifado.
-- Primeira migration PostgreSQL/Supabase com empresas, obras, almoxarifados, materiais, fornecedores, saldos, movimentações, requisições e auditoria.
-- Cliente REST tipado para consultas server-side ao Supabase, sem expor a service role.
-- Documentação de setup, arquitetura inicial e roadmap.
+- Login funcional com autenticação real no Supabase.
+- Dashboard com visão geral do almoxarifado.
+- Cadastro e listagem de materiais.
+- Movimentação de estoque com lançamento de entrada e saída.
+- Requisição de material com status pendente.
+- Aprovação de requisições.
+- Inventário com contagem física e aprovação de diferença.
+- Integração com Supabase em produção.
+- Deploy em Vercel com ambiente configurado.
+- Documentação de estudo e organização do projeto.
 
-### Ainda não implementado
+### Status do projeto
 
-- Login e RBAC reais.
-- Persistência do dashboard nos dados do Supabase.
-- CRUDs de materiais, obras, fornecedores e requisições.
-- Fluxos de compra, recebimento, qualidade, ferramentas, EPI, inventário e relatórios.
-- PWA/offline, QR Code, anexos e sincronização.
+O sistema já foi validado em produção para os ciclos principais do negócio e está preparado como base funcional para estudo e evolução.
 
-O dashboard atual é uma base visual e usa dados estáticos de demonstração. Essa distinção é importante: a interface não deve ser confundida com um fluxo operacional já conectado ao banco.
+## Stack
 
-## Stack planejada
+- **Frontend:** Next.js 16, React 19, TypeScript
+- **Backend / dados / auth:** Supabase, PostgreSQL, Auth
+- **Deploy:** Vercel
 
-- **Frontend:** Next.js 16, React 19, TypeScript e CSS.
-- **Dados e autenticação:** Supabase (PostgreSQL, Auth e Storage).
-- **Deploy:** GitHub como repositório e Vercel como hospedagem do Next.js.
-- **Evolução:** PWA com IndexedDB, API server-side, auditoria, filas de sincronização e integração com QR Code.
+## Estrutura principal
+
+- [src/app](src/app): páginas e rotas do app
+- [src/app/api](src/app/api): APIs internas do sistema
+- [src/lib](src/lib): utilitários e integrações
+- [supabase/migrations](supabase/migrations): migrações SQL do banco
+- [docs](docs): documentação e materiais de estudo
 
 ## Rodar localmente
 
@@ -36,21 +42,30 @@ npm install
 npm run dev
 ```
 
-Abra `http://localhost:3000`.
+Abra:
 
-Comandos de validação:
+```text
+http://localhost:3000
+```
+
+## Validação de build
 
 ```bash
 npm run lint
 npm run build
 ```
 
-## Documentação para estudo
+## Documentação de estudo
 
-- [Guia de configuração](docs/SETUP.md): GitHub, Supabase, Vercel e variáveis locais.
-- [Arquitetura e roadmap](docs/ROADMAP.md): como os requisitos do documento mestre serão entregues em etapas.
-- [Migration inicial](supabase/migrations/001_initial_schema.sql): modelo relacional e políticas iniciais.
+- [docs/README-ESTUDO.md](docs/README-ESTUDO.md): resumo do projeto, arquitetura e fluxos
+- [docs/SETUP.md](docs/SETUP.md): guia de setup com GitHub, Supabase e Vercel
 
-## Regra de publicação
+## Observações importantes
 
-Segredos nunca entram no GitHub. Use `.env.local` localmente e configure as mesmas variáveis no painel da Vercel. O arquivo `.env.example` contém somente nomes de variáveis e pode ser versionado.
+- Segredos e chaves não devem ser enviados ao GitHub.
+- As variáveis de ambiente devem ser configuradas localmente e também no painel do Vercel.
+- O projeto foi validado como base funcional de gestão de almoxarifado.
+
+## Próximo passo sugerido
+
+Continuar a evolução com refinamento de UX, relatórios, filtros, compras, fornecedores e cotações.

@@ -33,12 +33,14 @@ export async function flushOfflineRequests() {
   });
 
   for (const item of items) {
+    if (typeof item.id !== "number") continue;
+
     try {
       const response = await fetch(item.url, { method: item.method, headers: { "Content-Type": "application/json" }, body: item.body, credentials: "include" });
       if (!response.ok) break;
       await new Promise<void>((resolve, reject) => {
         const transaction = database.transaction(STORE, "readwrite");
-        transaction.objectStore(STORE).delete(item.id);
+        transaction.objectStore(STORE).delete(item.id as number);
         transaction.oncomplete = () => resolve();
         transaction.onerror = () => reject(transaction.error);
       });
