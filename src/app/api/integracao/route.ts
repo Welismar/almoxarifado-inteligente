@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getProfile, hasPermission } from "@/lib/permissions";
 
 function getConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -98,6 +99,10 @@ export async function POST(request: Request) {
 
   try {
     const { url, anonKey } = getConfig();
+    const profile = await getProfile(url, anonKey, accessToken);
+    if (!profile || !hasPermission(profile.profile.role, "integration:write")) {
+      return NextResponse.json({ error: "Seu perfil não pode importar dados." }, { status: 403 });
+    }
     const body = (await request.json()) as {
       csv?: string;
       rows?: Array<Record<string, unknown>>;

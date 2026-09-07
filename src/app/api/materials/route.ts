@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
+import { getProfile, hasPermission } from "@/lib/permissions";
 
 function getSupabaseConfig() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -179,6 +180,11 @@ export async function POST(request: Request) {
 
     if (!companyId) {
       return NextResponse.json({ error: "Usuário sem empresa vinculada." }, { status: 403 });
+    }
+
+    const profile = await getProfile(url, anonKey, accessToken);
+    if (!profile || !hasPermission(profile.profile.role, "materials:write")) {
+      return NextResponse.json({ error: "Seu perfil não pode cadastrar materiais." }, { status: 403 });
     }
 
     const response = await fetch(`${url}/rest/v1/materials`, {
