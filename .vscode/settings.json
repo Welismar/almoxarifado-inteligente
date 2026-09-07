@@ -1,0 +1,17 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+  "files.exclude": {
+    "**/.next": true,
+    "**/supabase/.temp": true
+  },
+  "search.exclude": {
+    "**/.next": true,
+    "**/supabase/.temp": true
+  }
+}
