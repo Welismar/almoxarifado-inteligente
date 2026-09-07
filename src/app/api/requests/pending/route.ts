@@ -16,7 +16,7 @@ export async function GET() {
   if (!accessToken) return NextResponse.json({ error: "Não autenticado." }, { status: 401 });
   if (!url || !anonKey) return NextResponse.json({ error: "Supabase não configurado." }, { status: 500 });
 
-  const response = await fetch(`${url}/rest/v1/material_requests?select=id,project_id,priority,needed_at,front,service,cost_center,created_at,material_request_items(id,requested_quantity,materials(code,name,unit))&status=eq.pending&order=created_at.asc`, {
+  const response = await fetch(`${url}/rest/v1/material_requests?select=id,project_id,priority,needed_at,front,service,cost_center,created_at,requester:profiles!requester_id(full_name),material_request_items(id,requested_quantity,materials(code,name,unit))&status=eq.pending&order=created_at.asc`, {
     headers: { apikey: anonKey, Authorization: `Bearer ${accessToken}` },
     cache: "no-store",
   });

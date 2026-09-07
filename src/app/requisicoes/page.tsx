@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { enqueueOfflineRequest } from "@/lib/offline-queue";
+import { formatUnit } from "@/lib/units";
 
 type Option = { id: string; name: string; code?: string; unit?: string };
 type RequestItem = { materialId: string; quantity: string; unit: string };

@@ -21,7 +21,7 @@ Crie o repositório vazio no GitHub antes do `git remote add`. Não adicione `.e
 
 1. Crie um projeto em [supabase.com](https://supabase.com).
 2. Abra o SQL Editor.
-3. Execute `supabase/migrations/001_initial_schema.sql`.
+3. Execute as migrations de `supabase/migrations/` em ordem, incluindo `015_purchase_context.sql`.
 4. Em **Project Settings > API**, copie a URL e a chave `anon` para `.env.local`.
 5. Mantenha a `service_role` apenas em ambiente server-side, se ela for necessária no futuro.
 
@@ -31,6 +31,8 @@ Para aplicar migrations com a CLI do Supabase, depois de instalar e autenticar a
 supabase link --project-ref SEU_PROJECT_REF
 supabase db push
 ```
+
+Para aplicar migrations automaticamente a cada push em `main`, configure no GitHub os secrets `SUPABASE_ACCESS_TOKEN` e `SUPABASE_PROJECT_REF`. O workflow `.github/workflows/supabase-migrations.yml` executará `supabase db push` somente quando uma migration mudar.
 
 ## 3. Desenvolvimento local
 
@@ -49,6 +51,8 @@ No PowerShell, `copy` é o alias de `Copy-Item`. Preencha `.env.local` antes de 
 3. Em **Settings > Environment Variables**, adicione `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` para Preview e Production.
 4. Faça um novo deploy após salvar as variáveis.
 5. Não configure `SUPABASE_SERVICE_ROLE_KEY` enquanto não houver uma rota server-side que realmente precise dela.
+
+O deploy da Vercel deve permanecer conectado à branch `main`; cada push aprovado dispara um novo deploy. O GitHub Actions de migrations roda em paralelo e deve terminar antes de usar as novas telas em produção.
 
 ## 5. Contrato de autenticação
 

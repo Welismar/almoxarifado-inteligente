@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { formatUnit } from "@/lib/units";
 
 type Material = {
   id: string;
@@ -19,6 +20,9 @@ type Movement = {
   lot: string | null;
   created_at: string;
   responsible_id: string | null;
+  service_front?: string | null;
+  equipment_type?: string | null;
+  collaborator_name?: string | null;
   balance?: number;
 };
 const labels: Record<string, string> = {
@@ -97,6 +101,9 @@ export default function KardexPage() {
       "Saldo",
       "Custo",
       "Lote",
+      "Frente/serviço",
+      "Equipamento",
+      "Colaborador",
     ];
     const lines = rows.map((movement) => {
       const incoming =
@@ -112,6 +119,9 @@ export default function KardexPage() {
         movement.balance,
         movement.unit_cost,
         movement.lot ?? "",
+        movement.service_front ?? "",
+        movement.equipment_type ?? "",
+        movement.collaborator_name ?? "",
       ].join(",");
     });
     const blob = new Blob([[header.join(","), ...lines].join("\n")], {
@@ -122,6 +132,13 @@ export default function KardexPage() {
     link.download = `kardex-${material?.code ?? "material"}.csv`;
     link.click();
     URL.revokeObjectURL(link.href);
+  }
+
+  function exportExcel() {
+    const table = document.querySelector(".kardex-panel table");
+    if (!table) return;
+    const blob = new Blob([`\ufeff<table>${table.innerHTML}</table>`], { type: "application/vnd.ms-excel;charset=utf-8" });
+    const link = document.createElement("a"); link.href = URL.createObjectURL(blob); link.download = `kardex-${material?.code ?? "material"}.xls`; link.click(); URL.revokeObjectURL(link.href);
   }
 
   const rows = movements
@@ -257,13 +274,13 @@ export default function KardexPage() {
             <span>Material</span>
             <strong>{material.name}</strong>
             <small>
-              {material.code} · {material.unit}
+              {material.code} · {formatUnit(material.unit)}
             </small>
           </div>
           <div>
             <span>Saldo calculado</span>
             <strong>
-              {rows[0]?.balance ?? 0} {material.unit}
+              {rows[0]?.balance ?? 0} {formatUnit(material.unit)}
             </strong>
             <small>Baseado no histórico filtrado</small>
           </div>
@@ -291,6 +308,8 @@ export default function KardexPage() {
               >
                 Exportar CSV ↓
               </button>
+              <button className="select-button" type="button" onClick={exportExcel}>Excel ↓</button>
+              <button className="select-button" type="button" onClick={() => window.print()}>Imprimir</button>
             </div>
             <div className="materials-table-wrap">
               <table>

@@ -140,7 +140,7 @@ export async function GET() {
       return NextResponse.json({ materials: [] });
     }
 
-    const response = await fetch(`${url}/rest/v1/materials?select=id,code,name,unit,minimum_stock,average_cost,status&company_id=eq.${companyId}&order=name.asc`, {
+    const response = await fetch(`${url}/rest/v1/materials?select=id,code,name,unit,barcode,technical_description,minimum_stock,maximum_stock,reorder_point,average_cost,status&company_id=eq.${companyId}&order=name.asc`, {
       headers: { apikey: anonKey, Authorization: `Bearer ${accessToken}` },
       cache: "no-store",
     });
@@ -168,6 +168,10 @@ export async function POST(request: Request) {
     unit?: string;
     minimumStock?: number;
     averageCost?: number;
+    barcode?: string;
+    technicalDescription?: string;
+    maximumStock?: number;
+    reorderPoint?: number;
   };
 
   if (!body.code?.trim() || !body.name?.trim() || !body.unit?.trim()) {
@@ -200,7 +204,11 @@ export async function POST(request: Request) {
         code: body.code.trim(),
         name: body.name.trim(),
         unit: body.unit.trim().toUpperCase(),
+        barcode: body.barcode?.trim() || null,
+        technical_description: body.technicalDescription?.trim() || null,
         minimum_stock: Math.max(0, Number(body.minimumStock ?? 0)),
+        maximum_stock: body.maximumStock ? Math.max(0, Number(body.maximumStock)) : null,
+        reorder_point: Math.max(0, Number(body.reorderPoint ?? body.minimumStock ?? 0)),
         average_cost: Math.max(0, Number(body.averageCost ?? 0)),
       }),
     });

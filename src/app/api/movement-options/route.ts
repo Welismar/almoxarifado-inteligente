@@ -66,14 +66,15 @@ export async function GET() {
     const { url, anonKey } = getSupabaseConfig();
     const companyId = await getCurrentCompanyId(url, accessToken, anonKey);
 
-    const [projects, warehouses, locations, materials] = await Promise.all([
+    const [projects, warehouses, locations, materials, people] = await Promise.all([
       fetchWithCompanyFallback(url, accessToken, anonKey, "projects", "id,name", "name.asc", companyId),
       fetchWithCompanyFallback(url, accessToken, anonKey, "warehouses", "id,name,project_id", "name.asc", companyId),
       fetchWithCompanyFallback(url, accessToken, anonKey, "locations", "id,name,code,warehouse_id", "code.asc", companyId),
       fetchWithCompanyFallback(url, accessToken, anonKey, "materials", "id,code,name,unit,average_cost", "name.asc", companyId, "status=eq.active"),
+      fetchWithCompanyFallback(url, accessToken, anonKey, "profiles", "id,full_name,role", "full_name.asc", companyId),
     ]);
 
-    if ([projects, warehouses, locations, materials].some((response) => !response.ok)) {
+    if ([projects, warehouses, locations, materials, people].some((response) => !response.ok)) {
       return NextResponse.json({ error: "Não foi possível carregar as opções do estoque." }, { status: 502 });
     }
 
@@ -82,6 +83,7 @@ export async function GET() {
       warehouses: await warehouses.json(),
       locations: await locations.json(),
       materials: await materials.json(),
+      people: await people.json(),
     });
   } catch {
     return NextResponse.json({ error: "Supabase não configurado." }, { status: 500 });

@@ -48,6 +48,7 @@ A tela existente é um dashboard de demonstração. A migration inicial é a pri
 
 - [ ] Frentes, serviços e centros de custo.
 - [ ] Orçado x realizado e consumo por obra.
+- [x] Contexto de compra com solicitante, comprador responsável e destino físico.
 - [ ] Inventário geral, parcial e cíclico.
 - [ ] Curvas ABC/XYZ e materiais parados.
 - [ ] Relatórios CSV/PDF.

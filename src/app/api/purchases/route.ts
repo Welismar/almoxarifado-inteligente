@@ -16,7 +16,10 @@ export async function POST(request: Request) {
   const quantity = Number(body.quantity);
   if (!["projectId", "materialId"].every((field) => typeof body[field] === "string" && body[field])) return NextResponse.json({ error: "Obra e material são obrigatórios." }, { status: 400 });
   if (!Number.isFinite(quantity) || quantity <= 0) return NextResponse.json({ error: "Quantidade inválida." }, { status: 400 });
-  const response = await fetch(`${url}/rest/v1/rpc/create_purchase_request`, { method: "POST", headers: { apikey: anonKey, Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" }, body: JSON.stringify({ p_project_id: body.projectId, p_material_id: body.materialId, p_requested_quantity: quantity, p_priority: body.priority || "normal", p_needed_at: body.neededAt || null, p_estimated_unit_cost: Number(body.estimatedUnitCost || 0), p_notes: body.notes || null }) });
+  if (body.purchasingResponsibleId && typeof body.purchasingResponsibleId !== "string") return NextResponse.json({ error: "Responsável de compras inválido." }, { status: 400 });
+  if (body.destinationWarehouseId && typeof body.destinationWarehouseId !== "string") return NextResponse.json({ error: "Almoxarifado de destino inválido." }, { status: 400 });
+  if (body.destinationLocationId && typeof body.destinationLocationId !== "string") return NextResponse.json({ error: "Local de destino inválido." }, { status: 400 });
+  const response = await fetch(`${url}/rest/v1/rpc/create_purchase_request`, { method: "POST", headers: { apikey: anonKey, Authorization: `Bearer ${accessToken}`, "Content-Type": "application/json" }, body: JSON.stringify({ p_project_id: body.projectId, p_material_id: body.materialId, p_requested_quantity: quantity, p_priority: body.priority || "normal", p_needed_at: body.neededAt || null, p_estimated_unit_cost: Number(body.estimatedUnitCost || 0), p_notes: body.notes || null, p_purchasing_responsible_id: body.purchasingResponsibleId || null, p_destination_warehouse_id: body.destinationWarehouseId || null, p_destination_location_id: body.destinationLocationId || null }) });
   if (!response.ok) return NextResponse.json({ error: "Não foi possível criar a solicitação de compra." }, { status: response.status });
   return NextResponse.json({ purchase: await response.json() }, { status: 201 });
 }
