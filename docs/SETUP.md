@@ -52,7 +52,7 @@ No PowerShell, `copy` é o alias de `Copy-Item`. Preencha `.env.local` antes de 
 4. Faça um novo deploy após salvar as variáveis.
 5. Não configure `SUPABASE_SERVICE_ROLE_KEY` enquanto não houver uma rota server-side que realmente precise dela.
 
-O deploy da Vercel deve permanecer conectado à branch `main`; cada push aprovado dispara um novo deploy. O GitHub Actions de migrations roda em paralelo e deve terminar antes de usar as novas telas em produção.
+O repositório possui três automações: `.github/workflows/ci.yml` instala dependências e executa o build; `.github/workflows/supabase-migrations.yml` aplica migrations; e `.github/workflows/vercel-deploy.yml` publica a aplicação. Para o deploy independente da Vercel, configure no GitHub os secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID`. O GitHub Actions de migrations e o deploy da Vercel rodam em paralelo; o deploy da aplicação não substitui a aplicação das migrations.
 
 ## 5. Contrato de autenticação
 
