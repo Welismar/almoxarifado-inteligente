@@ -1,10 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { flushOfflineRequests } from "@/lib/offline-queue";
 
+const subscribeToConnection = (onChange: () => void) => {
+  window.addEventListener("online", onChange);
+  window.addEventListener("offline", onChange);
+  return () => {
+    window.removeEventListener("online", onChange);
+    window.removeEventListener("offline", onChange);
+  };
+};
+
+const getConnectionState = () => navigator.onLine;
+const getServerConnectionState = () => true;
+
 export function OfflineSync() {
-  const [isOnline, setIsOnline] = useState(true);
+  const isOnline = useSyncExternalStore(subscribeToConnection, getConnectionState, getServerConnectionState);
   const [isSyncing, setIsSyncing] = useState(false);
 
   useEffect(() => {
@@ -18,23 +30,13 @@ export function OfflineSync() {
       }
     };
 
-    const onOnline = () => {
-      setIsOnline(true);
-      void sync();
-    };
-
-    const onOffline = () => {
-      setIsOnline(false);
-    };
-
-    setIsOnline(navigator.onLine);
+    const onOnline = () => void sync();
     window.addEventListener("online", onOnline);
-    window.addEventListener("offline", onOffline);
-    void sync();
+    const timer = window.setTimeout(() => void sync(), 0);
 
     return () => {
       window.removeEventListener("online", onOnline);
-      window.removeEventListener("offline", onOffline);
+      window.clearTimeout(timer);
     };
   }, []);
 
