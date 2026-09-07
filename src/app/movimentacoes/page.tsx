@@ -9,7 +9,7 @@ type Location = { id: string; name: string; code: string; warehouse_id: string }
 type Material = { id: string; code: string; name: string; unit: string; average_cost: number };
 
 type Options = { projects: Project[]; warehouses: Warehouse[]; locations: Location[]; materials: Material[] };
-const initialForm = { projectId: "", warehouseId: "", locationId: "", materialId: "", type: "receipt", quantity: "", unitCost: "", lot: "", notes: "" };
+const initialForm = { projectId: "", warehouseId: "", locationId: "", materialId: "", type: "receipt", quantity: "", serviceFront: "", equipmentType: "", collaboratorName: "", unitCost: "", lot: "", notes: "" };
 
 export default function MovementsPage() {
   const [options, setOptions] = useState<Options>({ projects: [], warehouses: [], locations: [], materials: [] });

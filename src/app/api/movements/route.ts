@@ -49,6 +49,9 @@ export async function POST(request: Request) {
       p_expiry_date: body.expiryDate ?? null,
       p_reference_type: body.referenceType ?? null,
       p_reference_id: body.referenceId ?? null,
+      p_service_front: body.serviceFront ?? null,
+      p_equipment_type: body.equipmentType ?? null,
+      p_collaborator_name: body.collaboratorName ?? null,
       p_notes: body.notes ?? null,
     }),
   });

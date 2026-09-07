@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { supabaseRest } from "@/lib/supabase";
+import { LogoutButton } from "./logout-button";
 
 type BalanceRow = {
   quantity: number;
@@ -88,7 +89,7 @@ export default async function Home() {
           <a className="nav-item" href="/reposicao"><span className="nav-icon">⟲</span> Reposição</a>
           <a className="nav-item" href="#configuracoes"><span className="nav-icon">⚙</span> Configurações</a>
         </nav>
-        <div className="sidebar-footer"><div className="user-avatar">MC</div><div><strong>Mariana Costa</strong><small>Administrador</small></div><span className="more">•••</span></div>
+        <div className="sidebar-footer"><div className="user-avatar">MC</div><div><strong>Mariana Costa</strong><small>Administrador</small></div><LogoutButton /></div>
       </aside>
 
       <main className="main-content" id="resumo">
