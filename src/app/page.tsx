@@ -66,6 +66,7 @@ export default async function Home() {
           <a className="nav-item" href="/requisicoes"><span className="nav-icon">✎</span> Requisições</a>
           <a className="nav-item" href="/aprovacoes"><span className="nav-icon">✓</span> Aprovações</a>
           <a className="nav-item" href="/alertas"><span className="nav-icon">⚠</span> Alertas</a>
+          <a className="nav-item" href="/reservas"><span className="nav-icon">◍</span> Reservas</a>
           <a className="nav-item" href="/separacao"><span className="nav-icon">▣</span> Separação</a>
           <a className="nav-item" href="/kardex"><span className="nav-icon">▤</span> Kardex</a>
           <a className="nav-item" href="/inventario"><span className="nav-icon">⊞</span> Inventário</a>
