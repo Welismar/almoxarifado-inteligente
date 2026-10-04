@@ -1,11 +1,13 @@
 ---
-name: "autopilot"
-description: "Use automatically at the start of every conversation or new task, in any app (claude.ai, desktop, mobile, Claude Code), to pick which installed skill fits each moment and to flag missing plugins."
+name: skill-router
+description: Use automatically at the start of every conversation or new task, in any app (claude.ai, desktop, mobile, Claude Code), to pick which installed skill fits each moment and to flag missing plugins.
 ---
 
-# Autopilot: the right skill at each moment
+# Skill router: the right skill at each moment
 
 The user installed many skills and wants each one used on its own, at the right moment, in every place they log in. This skill is the map. It is a quick check, not a ceremony: decide silently, load only what the moment needs, never announce which skill you picked unless asked. Talk to the user in Portuguese.
+
+(This skill replaces the earlier `autopilot`, renamed because `autopilot` collides with a built-in Claude Code command that some environments disable.)
 
 ## Routing map
 
@@ -33,7 +35,9 @@ When this conversation runs in Claude Code and a skill the map calls for is miss
 2. Tell the user once per conversation, in one or two lines, the likely cause and fix: update Claude Code (`claude update`), sign in with the claude.ai account (`/login`), then run `/reload-plugins`. If that does not bring them back on this surface, install them once on this computer: `/plugin`, Discover tab, install at user scope (the terminal, desktop Code tab and VS Code share those settings).
 3. Do not repeat the reminder after the user has seen it.
 
-Cloud sessions at claude.ai/code and the Claude GitHub app read the repository rather than the user's computer. If the user works there often, offer once to save the key skills into the project's `.claude/skills/` folder, so the repository carries the setup.
+If a skill call fails because the skill is disabled in this environment's settings, continue without it and mention it once.
+
+Cloud sessions at claude.ai/code and the Claude GitHub app read the repository rather than the user's computer. The user's repositories carry a copy of the skills in `.claude/skills/`; if the user changes a skill in their account, offer once to sync that copy.
 
 ## Guardrails that apply everywhere
 

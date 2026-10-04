@@ -2,7 +2,7 @@
 
 Esta pasta guarda as skills que o Claude usa automaticamente ao trabalhar neste repositório. Ela existe para que o mesmo comportamento valha também no Claude Code na nuvem (claude.ai/code) e no app do Claude no GitHub, que leem o repositório em vez da sua conta.
 
-- `autopilot`: escolhe a skill certa para cada momento.
+- `skill-router`: escolhe a skill certa para cada momento.
 - `dev-workflow`: define qual skill cuida de cada etapa da programação.
 - `ponytail` e `ponytail-review`: código mínimo e revisão de excesso de complexidade.
 - `vercel-react`: regras da Vercel para React, Next.js e React Native.
