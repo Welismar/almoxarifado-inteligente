@@ -7,3 +7,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## Codex engineering standards
+- Read README, dependencies, tests and CI before changes.
+- Preserve behavior and APIs; keep modifications scoped.
+- Validate inputs, handle errors, protect secrets and avoid regressions.
+- Run available lint, typecheck, tests and build; report actual outcomes.
+- Never merge, deploy or alter production data without explicit approval.
+- Preserve the Next.js agent rules above and consult installed Next.js documentation.
