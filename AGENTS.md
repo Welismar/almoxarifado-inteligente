@@ -15,3 +15,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Run available lint, typecheck, tests and build; report actual outcomes.
 - Never merge, deploy or alter production data without explicit approval.
 - Preserve the Next.js agent rules above and consult installed Next.js documentation.
+
+## Cloud-first workflow
+
+- Use GitHub as the source of truth. Work in Codex Cloud or another remote ephemeral environment; do not require files, secrets, or tools installed on the user's personal computer.
+- Save meaningful work as commits on dedicated branches and submit draft pull requests for review. Do not commit credentials or generated private data.
+- Use cloud CI for lint, tests, type checks and builds. Report failures accurately; never bypass checks to claim success.
+- Keep setup reproducible from versioned dependency manifests and documented environment variables. Put secrets only in approved cloud secret stores.
+- Do not merge, deploy, modify production databases, incur paid cloud resources, or change access controls without explicit approval.
